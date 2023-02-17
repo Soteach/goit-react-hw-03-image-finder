@@ -25,11 +25,11 @@ class ImageGallery extends Component {
     const { toSearch } = this.props;
     const { currentPage } = this.state;
 
-    if (
-      toSearch !== prevProps.toSearch &&
-      prevState.currentPage === currentPage
-    ) {
+    if (toSearch !== prevProps.toSearch) {
       this.setState({ images: [], currentPage: 1 });
+    }
+    if (toSearch !== prevProps.toSearch && currentPage !== 1) {
+      return;
     }
 
     if (
@@ -114,9 +114,11 @@ class ImageGallery extends Component {
             })}
           </ImageGalleryList>
           {this.state.isLoadingMore && <Loader />}
-          {this.state.totalPages > 1 && !this.state.isLoadingMore && (
-            <Button clickHandler={this.loadMoreHandler} />
-          )}
+          {this.state.totalPages > 1 &&
+            !this.state.isLoadingMore &&
+            this.state.totalPages !== this.state.currentPage && (
+              <Button clickHandler={this.loadMoreHandler} />
+            )}
           {this.state.modalOpened && (
             <Modal
               bigImage={this.state.largeImage}

@@ -4,7 +4,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 
 class App extends Component {
   state = {
-    searcInput: '',
+    searchInput: '',
   };
 
   searchInputHandler = input => {
